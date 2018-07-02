@@ -16,7 +16,7 @@ Create a Filter:
 include::{sourceDir}/src/main/kotlin/example/micronaut/BintrayFilter.kt[]
 ----
 
-<1> Supply the pattern you want to match to the `@Filter` annotation.
+<1> Supply the pattern you want to match to the `@Filter` annotation. Note the required escaping (backslash) on "/api/\${bintray.apiversion}/repos/**" which is required due to Kotlin string interpolation.
 <2> Bean will not loaded unless configuration properties are set.
 <3> Constructor injection of the configuration parameters.
 <4> Enhance every request sent to Bintray API providing Basic Authentication.
