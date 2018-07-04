@@ -1,25 +1,39 @@
 package example.micronaut
 
+import example.micronaut.BintrayConfiguration.Companion.PREFIX
 import io.micronaut.context.annotation.ConfigurationProperties
 
-@ConfigurationProperties("bintray")
-data class BintrayConfiguration(val apiversion: String,
-                                val organization: String,
-                                val repository: String,
-                                val username: String?,
-                                val token: String?) {
+@ConfigurationProperties(PREFIX)
+class BintrayConfiguration {
+    companion object {
+        const val PREFIX = "bintray"
+        const val BINTRAY_URL = "https://bintray.com"
+    }
 
-    fun toMap() : Map<String, String> {
-        var m = mutableMapOf(Pair("apiversion", apiversion),
-                Pair("organization", organization),
-                Pair("repository", repository))
-        if ( username != null) {
-            m["username"] = username
+    var apiversion: String? = null
+    var organization: String? = null
+    var repository: String? = null
+    var username: String? = null
+    var token: String? = null
+
+    fun toMap(): MutableMap<String, Any> {
+        val m = HashMap<String, Any>()
+        if (apiversion != null) {
+            m["apiversion"] = apiversion!!
         }
-        if ( token != null) {
-            m["token"] = token
+        if (organization != null) {
+            m["organization"] = organization!!
         }
-        return m.toMap()
+        if (repository != null) {
+            m["repository"] = repository!!
+        }
+        if (username != null) {
+            m["username"] = username!!
+        }
+        if (token != null) {
+            m["token"] = token!!
+        }
+        return m
     }
 }
 

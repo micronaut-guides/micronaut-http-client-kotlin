@@ -4,7 +4,7 @@ import io.micronaut.http.client.Client
 import io.reactivex.Flowable
 import io.micronaut.http.annotation.Get
 
-@Client("https://bintray.com") // <1>
+@Client(BintrayConfiguration.BINTRAY_URL) // <1>
 interface BintrayClient {
 
     @Get("/api/\${bintray.apiversion}/repos/\${bintray.organization}/\${bintray.repository}/packages")  // <2>
