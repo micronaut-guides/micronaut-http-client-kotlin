@@ -17,9 +17,28 @@ include::{sourceDir}/src/main/kotlin/example/micronaut/BintrayFilter.kt[]
 ----
 
 <1> Supply the pattern you want to match to the `@Filter` annotation. Note the required escaping (backslash) on "/api/\${bintray.apiversion}/repos/**" which is required due to Kotlin string interpolation.
-<2> Bean will not loaded unless configuration properties are set.
+<2> Bean will not loaded unless condition is met
 <3> Constructor injection of the configuration parameters.
 <4> Enhance every request sent to Bintray API providing Basic Authentication.
+
+We want to load the `BintrayFilter` bean if both configuration parameters `bintray.username` and `bintray.token` are present.
+In the Java or Groovy versions of this guide, multiple `Requires` annotations are used. Multiple `@Requires` annotations are not possible with Kotlin.
+Instead, we use a condition class.
+
+[source,kotlin]
+.src/main/kotlin/example/micronaut/BintrayFilterCondition.kt
+----
+include::{sourceDir}/src/main/kotlin/example/micronaut/BintrayFilterCondition.kt[]
+----
+
+We verify the previous condition class with a test:
+
+[source,kotlin]
+.src/test/kotlin/example/micronaut/BintrayFilterConditionSpec.kt
+----
+include::{sourceDir}/src/test/kotlin/example/micronaut/BintrayFilterConditionSpec.kt[]
+----
+
 
 ==== Configuration Parameters
 
