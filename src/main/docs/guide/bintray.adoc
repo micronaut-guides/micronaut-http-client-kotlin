@@ -12,7 +12,7 @@ Initially, you will consume it anonymously, later we will discuss authentication
 
 Modify `src/main/resources/application.yml` to create some configuration parameters.
 
-[source,kotlin]
+[source,yaml]
 .src/main/resources/application.yml
 ----
 include::{sourceDir}/src/main/resources/application.yml[tag=bintrayconfig]
