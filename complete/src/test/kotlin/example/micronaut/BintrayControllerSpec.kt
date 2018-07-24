@@ -29,7 +29,7 @@ class BintrayControllerSpec: Spek({
             for (name in expectedProfileNames) {
                 var found = false
                 for ( bintraypackage in rsp.body() as List<BintrayPackage>) {
-                    found = expectedProfileNames == bintraypackage.name
+                    found = name == bintraypackage.name
                     if(found) {
                         break
                     }
@@ -45,7 +45,7 @@ class BintrayControllerSpec: Spek({
             for (name in expectedProfileNames) {
                 var found = false
                 for ( bintraypackage in bintrayPackages) {
-                    found = expectedProfileNames == bintraypackage.name
+                    found = name == bintraypackage.name
                     if(found) {
                         break
                     }
