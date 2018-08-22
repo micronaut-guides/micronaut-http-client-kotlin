@@ -1,4 +1,4 @@
-include::{commondir}/common-spek.adoc[]
+include::{commondir}/common-spek2.adoc[]
 
 Create a test which verifies both clients work as expected and the controller echoes the output of the Bintray API in a Reactive way.
 
