@@ -1,8 +1,8 @@
 package example.micronaut
 
-import io.micronaut.http.client.Client
 import io.reactivex.Flowable
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.client.annotation.Client
 
 @Client(BintrayConfiguration.BINTRAY_URL) // <1>
 interface BintrayClient {
