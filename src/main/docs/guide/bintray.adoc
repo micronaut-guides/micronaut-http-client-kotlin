@@ -18,7 +18,7 @@ Modify `src/main/resources/application.yml` to create some configuration paramet
 include::{sourceDir}/src/main/resources/application.yml[tag=bintrayconfig]
 ----
 
-To encapsulate type-safe configuration retrieval, we use a @ConfigurationProperties` object:
+To encapsulate type-safe configuration retrieval, we use a `@ConfigurationProperties` object:
 
 [source,kotlin]
 .src/main/kotlin/example/micronaut/BintrayConfiguration.kt
