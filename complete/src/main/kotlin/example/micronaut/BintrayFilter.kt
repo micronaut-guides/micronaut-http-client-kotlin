@@ -17,7 +17,7 @@ class BintrayFilter(var bintrayConfiguration: BintrayConfiguration) : HttpClient
         if ( bintrayConfiguration.username != null && bintrayConfiguration.token != null) {
             return chain.proceed(request.basicAuth(bintrayConfiguration.username, bintrayConfiguration.token)) // <4>
         }
-        return return chain.proceed(request)
+        return chain.proceed(request)
 
     }
 }
