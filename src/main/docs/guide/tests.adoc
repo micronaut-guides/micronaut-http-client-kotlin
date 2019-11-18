@@ -9,7 +9,7 @@ include::{sourceDir}/src/test/kotlin/example/micronaut/BintrayControllerSpec.kt[
 ----
 
 <1> To run the application from a unit test you can use the http://docs.micronaut.io/api/io/micronaut/runtime/server/EmbeddedServer.html[EmbeddedServer] interface
-<2> Micronaut’s HTTP client includes support for streaming data over HTTP via the https://docs.micronaut.io/snapshot/api/io/micronaut/http/client/RxStreamingHttpClient.html[RxStreamingHttpClient]. Register a `RxStreamingHttpClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
+<2> Micronaut’s HTTP client includes support for streaming data over HTTP via the https://docs.micronaut.io/latest/api/io/micronaut/http/client/RxStreamingHttpClient.html[RxStreamingHttpClient]. Register a `RxStreamingHttpClient` bean in the application context and point it to the embedded server URL. The `EmbeddedServer` interface provides the URL of the server under test which runs on a random port.
 <3> Sometimes, receiving just the object is not enough and you need information about the response. In this case, instead of `retrieve` you should use the `exchange` method.
 <4> Micronaut makes it easy to parse JSON into Kotlin objects.
 <5> Use `status` to check the HTTP status code.
