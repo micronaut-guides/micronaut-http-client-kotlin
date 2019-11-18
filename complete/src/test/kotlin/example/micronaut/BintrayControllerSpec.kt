@@ -7,11 +7,10 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.RxStreamingHttpClient
 import io.micronaut.runtime.server.EmbeddedServer
 import io.reactivex.Flowable
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
+import org.junit.jupiter.api.Assertions.*
 
 class BintrayControllerSpec: Spek({
     val expectedProfileNames = arrayOf("base", "federation", "function", "function-aws", "service")
@@ -22,7 +21,7 @@ class BintrayControllerSpec: Spek({
         it("Verify bintray packages can be fetched with low level HttpClient") {
             val request = HttpRequest.GET<Any>("/bintray/packages-lowlevel")
             val rsp = client.toBlocking().exchange(request,   // <3>
-                    Argument.of(List::class.java, BintrayPackage::class.java))  // <4>
+                    Argument.listOf(BintrayPackage::class.java))  // <4>
 
             assertEquals(rsp.status()!!, HttpStatus.OK) // <5>
             assertNotNull(rsp.body()) // <6>

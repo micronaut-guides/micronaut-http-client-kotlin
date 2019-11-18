@@ -20,7 +20,7 @@ class BintrayLowLevelClient(@param:Client(BintrayConfiguration.BINTRAY_URL) priv
 
     internal fun fetchPackages(): Maybe<List<BintrayPackage>> {
         val req = HttpRequest.GET<Any>(uri)  // <4>
-        val flowable = httpClient.retrieve(req, Argument.of(List::class.java, BintrayPackage::class.java))  // <5>
+        val flowable = httpClient.retrieve(req, Argument.listOf(BintrayPackage::class.java))  // <5>
         return flowable.firstElement() as Maybe<List<BintrayPackage>>  // <6>
     }
 
