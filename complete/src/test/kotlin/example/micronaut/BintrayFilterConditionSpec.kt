@@ -2,18 +2,18 @@ package example.micronaut
 
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.exceptions.NoSuchBeanException
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
+import io.micronaut.http.client.exceptions.HttpClientResponseException
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
 
-class BintrayFilterConditionSpec: Spek({
+class BintrayFilterConditionSpec : Spek({
 
     describe("BintrayFilter is loaded") {
         val applicationContext = ApplicationContext.run(mapOf<String, Any>(Pair("bintray.username", "john"), Pair("bintray.token", "XXX")), "test")
-         it("Verify BintrayFilter is loaded if bintray.username/bintray.token are set") {
-             assertNotNull(applicationContext.getBean(BintrayFilter::class.java))
+        it("Verify BintrayFilter is loaded if bintray.username/bintray.token are set") {
+            assertNotNull(applicationContext.getBean(BintrayFilter::class.java))
         }
         afterGroup {
             applicationContext.close()
@@ -23,13 +23,9 @@ class BintrayFilterConditionSpec: Spek({
     describe("BintrayFilter is not loaded") {
         val applicationContext = ApplicationContext.run("test")
         it("Verify BintrayFilter is NOT loaded if bintray.username and bintray.token are not set") {
-            var exceptionThrown = false
-            try {
+            assertFailsWith<NoSuchBeanException> {
                 applicationContext.getBean(BintrayFilter::class.java)
-            } catch (e: NoSuchBeanException) {
-                exceptionThrown = true
             }
-            assertTrue(exceptionThrown)
         }
         afterGroup {
             applicationContext.close()
