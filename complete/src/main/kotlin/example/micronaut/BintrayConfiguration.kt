@@ -16,7 +16,7 @@ class BintrayConfiguration {
     var username: String? = null
     var token: String? = null
 
-    fun toMap(): MutableMap<String, Any> {
+    fun toMap(): Map<String, Any> {
         val m = HashMap<String, Any>()
         apiversion?.let {
             m["apiversion"] = it
