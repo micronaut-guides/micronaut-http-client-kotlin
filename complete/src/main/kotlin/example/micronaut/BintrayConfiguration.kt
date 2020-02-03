@@ -18,20 +18,20 @@ class BintrayConfiguration {
 
     fun toMap(): MutableMap<String, Any> {
         val m = HashMap<String, Any>()
-        if (apiversion != null) {
-            m["apiversion"] = apiversion!!
+        apiversion?.let {
+            m["apiversion"] = it
         }
-        if (organization != null) {
-            m["organization"] = organization!!
+        organization?.let {
+            m["organization"] = it
         }
-        if (repository != null) {
-            m["repository"] = repository!!
+        repository?.let {
+            m["repository"] = it
         }
-        if (username != null) {
-            m["username"] = username!!
+        username?.let {
+            m["username"] = it
         }
-        if (token != null) {
-            m["token"] = token!!
+        token?.let {
+            m["token"] = it
         }
         return m
     }
