@@ -3,3 +3,5 @@ defaultPackage: example.micronaut
 ---
 testFramework: spek
 sourceLanguage: kotlin
+buildTool: gradle
+features: [app-name, docker, graalvm, gradle, http-client, kotlin, kotlin-application, kotlintest, logback, netty-server, readme, shade, yaml]
