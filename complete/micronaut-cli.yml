@@ -1,7 +1,6 @@
-profile: service
+applicationType: default
 defaultPackage: example.micronaut
----
-testFramework: spek
+testFramework: junit
 sourceLanguage: kotlin
 buildTool: gradle
-features: [app-name, docker, graalvm, gradle, http-client, kotlin, kotlin-application, kotlintest, logback, netty-server, readme, shade, yaml]
+features: [app-name, docker, file-watch, graalvm, gradle, http-client, junit, kotlin, kotlin-application, logback, netty-server, readme, shade, yaml]

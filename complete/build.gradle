@@ -9,8 +9,8 @@ plugins {
 version "0.1"
 group "example.micronaut"
 
-
 repositories {
+    mavenCentral()
     jcenter()
 }
 
@@ -20,45 +20,34 @@ configurations {
 }
 
 dependencies {
-    implementation(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    implementation("io.micronaut:micronaut-runtime")
-    implementation("io.micronaut:micronaut-http-client")
-    implementation("io.micronaut:micronaut-http-server-netty")
-    implementation("javax.annotation:javax.annotation-api")
-    kapt(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kapt(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     kapt("io.micronaut:micronaut-inject-java")
     kapt("io.micronaut:micronaut-validation")
-    kaptTest(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
-    kaptTest("io.micronaut:micronaut-inject-java")
+    kapt("io.micronaut:micronaut-graal")
+    compileOnly(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    compileOnly("org.graalvm.nativeimage:svm")
+    implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     implementation("io.micronaut:micronaut-inject")
-    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut:micronaut-validation")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("io.micronaut:micronaut-http-client")
+    runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
-    runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
+    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    kaptTest("io.micronaut:micronaut-inject-java")
+    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("io.micronaut.test:micronaut-test-junit5")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-	testImplementation(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
-    testImplementation("io.micronaut.test:micronaut-test-kotlintest")
-    testImplementation("io.mockk:mockk:1.9.3")
-
-    //tag::spek[]
-    testImplementation("io.micronaut.test:micronaut-test-kotlintest")
-	testImplementation ("org.spekframework.spek2:spek-dsl-jvm:$spekVersion") {
-        exclude group: 'org.jetbrains.kotlin'
-    }
-    testRuntimeOnly ("org.spekframework.spek2:spek-runner-junit5:$spekVersion") {
-        exclude group: 'org.junit.platform'
-        exclude group: 'org.jetbrains.kotlin'
-    }
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
-    //end::spek[]
 }
-	
+
 test.classpath += configurations.developmentOnly
 
-mainClassName = "example.micronaut.Application"
+mainClassName = "example.micronaut.ApplicationKt"
 
 // use JUnit 5 platform
 test {
@@ -85,6 +74,14 @@ compileTestKotlin {
         javaParameters = true
     }
 }
+kapt {
+    arguments {
+        arg("micronaut.processing.incremental", true)
+        arg("micronaut.processing.annotations", "example.micronaut.*")
+        arg("micronaut.processing.group", "example.micronaut")
+        arg("micronaut.processing.module", "complete")
+    }
+}
 
 shadowJar {
     mergeServiceFiles()
@@ -93,6 +90,13 @@ shadowJar {
 tasks.withType(JavaExec) {
     classpath += configurations.developmentOnly
     jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+    if (gradle.startParameter.continuous) {
+        systemProperties(
+            'micronaut.io.watch.restart':'true',
+            'micronaut.io.watch.enabled':'true',
+            "micronaut.io.watch.paths":"src/main"
+        )
+    }
 }
 
 
