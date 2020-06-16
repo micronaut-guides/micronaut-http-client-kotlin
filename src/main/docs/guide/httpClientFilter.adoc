@@ -34,9 +34,9 @@ include::{sourceDir}/src/main/kotlin/example/micronaut/BintrayFilterCondition.kt
 We verify the previous condition class with a test:
 
 [source,kotlin]
-.src/test/kotlin/example/micronaut/BintrayFilterConditionSpec.kt
+.src/test/kotlin/example/micronaut/BintrayFilterConditionTest.kt
 ----
-include::{sourceDir}/src/test/kotlin/example/micronaut/BintrayFilterConditionSpec.kt[]
+include::{sourceDir}/src/test/kotlin/example/micronaut/BintrayFilterConditionTest.kt[]
 ----
 
 
