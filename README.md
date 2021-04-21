@@ -1,4 +1,1 @@
-# Micronaut HTTP Client #
-
-Guide: http://guides.micronaut.io/micronaut-http-client-kotlin/guide/index.html
-
+# This guide has been deprecated and moved to https://github.com/micronaut-projects/micronaut-guides-poc. Please open any issue or pull request in that repository.
